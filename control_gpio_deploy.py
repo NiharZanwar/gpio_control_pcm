@@ -16,8 +16,8 @@ def initialize():
 
 
 def export_gpio(gpio, direction):
-    system("echo {} > /sys/class/gpio/export".format(gpio))
-    system("echo {} > /sys/class/gpio/gpio{}/direction".format(direction, gpio))
+    # system("echo {} > /sys/class/gpio/export".format(gpio))
+    system("gpio mode {} {}".format(gpio, direction))
 
 
 def initialize_gpio(config):
@@ -26,7 +26,7 @@ def initialize_gpio(config):
 
 
 def set_gpio(pin, value, inverted):
-    system("echo {} > /sys/class/gpio/gpio{}/value".format(abs(value - inverted), pin))
+    system("gpio write {} {}".format(pin, abs(value - inverted)))
 
 
 def handle_gpio(config, occupancy):
