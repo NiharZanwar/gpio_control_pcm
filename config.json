@@ -13,6 +13,6 @@
     }
   ],
   "device_ip": "localhost",
-  "device_port": 5003,
+  "device_port": 5000,
   "api": "/update_screen"
 }
