@@ -2,6 +2,13 @@ from os import system
 import requests
 import json
 from time import sleep
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+
+key = {
+    1: GPIO.HIGH,
+    0: GPIO.LOW}
 
 
 def initialize():
@@ -17,7 +24,8 @@ def initialize():
 
 def export_gpio(gpio, direction):
     # system("echo {} > /sys/class/gpio/export".format(gpio))
-    system("gpio mode {} {}".format(gpio, direction))
+    # system("gpio mode {} {}".format(gpio, direction))
+    GPIO.setup(int(gpio), GPIO.OUT, initial=GPIO.LOW)
 
 
 def initialize_gpio(config):
@@ -26,7 +34,8 @@ def initialize_gpio(config):
 
 
 def set_gpio(pin, value, inverted):
-    system("gpio write {} {}".format(pin, abs(value - inverted)))
+    # system("gpio write {} {}".format(pin, abs(value - inverted)))
+    GPIO.output(int(pin), key[abs(value - inverted)])
 
 
 def handle_gpio(config, occupancy):
@@ -70,4 +79,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 # initialize_gpio(initialize())
