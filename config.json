@@ -1,14 +1,14 @@
 {
   "gpio": [
     {
-      "pin": 17,
+      "pin": 7,
       "inverted": 0,
       "direction": "out"
 
     },
     {
-      "pin": 18,
-      "inverted": 1,
+      "pin": 22,
+      "inverted": 0,
       "direction": "out"
     }
   ],
