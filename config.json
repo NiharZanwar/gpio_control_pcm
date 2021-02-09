@@ -14,7 +14,5 @@
   ],
   "device_ip": "localhost",
   "device_port": 5000,
-  "api": "/update_screen",
-  "trigger_up_time_s":0.5,
-  "trigger_down_time_s":0.5 
+  "api": "/update_screen"
 }

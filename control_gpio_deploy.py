@@ -68,9 +68,6 @@ def get_occupancy_data(config):
 
 def main():
     config = initialize()
-    prev_in = None
-    prev_out = None
-    sleep(30)
     while True:
         try:
             initialize_gpio(config)
@@ -80,35 +77,9 @@ def main():
         sleep(5)
     while True:
         occupancy_data = get_occupancy_data(config)
-        # print(occupancy_data)
         if occupancy_data == 0:
             sleep(2)
             continue
-        if int(occupancy_data['relay-function']) == 0:
-            # print("relay function is off")
-            if prev_in is None and prev_out is None:
-                
-                print("Starting for the first time")
-                prev_in = occupancy_data['in']
-                prev_out = occupancy_data['out']
-                continue
-            
-            in_diff = abs(prev_in - occupancy_data['in'])
-            out_diff = abs(prev_out - occupancy_data['out'])
-            
-            if in_diff > 50 or out_diff > 50:
-                prev_in = occupancy_data['in']
-                prev_out = occupancy_data['out']
-                continue
-            print(in_diff, out_diff)
-            
-            for _in in range(0, in_diff):
-                send_in_trigger(config['gpio'][0]['pin'], config)
-            for _out in range(0, out_diff):
-                send_in_trigger(config['gpio'][1]['pin'], config)
-            prev_in = occupancy_data['in']
-            prev_out = occupancy_data['out']
-            
         else:
             handle_gpio(config, occupancy_data)
         sleep(2)
