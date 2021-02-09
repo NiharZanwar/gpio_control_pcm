@@ -4,7 +4,7 @@ import json
 from time import sleep
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
 key = {
     1: GPIO.HIGH,
@@ -36,14 +36,6 @@ def initialize_gpio(config):
 def set_gpio(pin, value, inverted):
     # system("gpio write {} {}".format(pin, abs(value - inverted)))
     GPIO.output(int(pin), key[abs(value - inverted)])
-
-
-def send_in_trigger(pin, config):
-    print("trigger to pin {}".format(pin))
-    GPIO.output(int(pin), key[1])
-    sleep(config['trigger_up_time_s'])
-    GPIO.output(int(pin), key[0])
-    sleep(config['trigger_down_time_s'])
 
 
 def handle_gpio(config, occupancy):
@@ -79,6 +71,9 @@ def main():
         occupancy_data = get_occupancy_data(config)
         if occupancy_data == 0:
             sleep(2)
+            continue
+        if int(occupancy_data['relay-function']) == 0:
+            print("relay function is off")
             continue
         else:
             handle_gpio(config, occupancy_data)
