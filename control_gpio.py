@@ -65,6 +65,10 @@ def main():
         if occupancy_data == 0:
             sleep(2)
             continue
+        if int(occupancy_data['relay-function']) == 0:
+            print("relay function is off")
+            sleep(2)
+            continue
         else:
             handle_gpio(config, occupancy_data)
         sleep(2)

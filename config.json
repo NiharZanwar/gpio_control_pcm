@@ -1,18 +1,18 @@
 {
   "gpio": [
     {
-      "pin": 17,
+      "pin": 22,
       "inverted": 0,
       "direction": "out"
 
     },
     {
-      "pin": 18,
-      "inverted": 1,
+      "pin": 27,
+      "inverted": 0,
       "direction": "out"
     }
   ],
   "device_ip": "localhost",
-  "device_port": 5003,
+  "device_port": 5000,
   "api": "/update_screen"
 }
